@@ -20,7 +20,7 @@ val Project.githubUrl: Provider<String>
   get() = providers.gradleProperty("githubUrl")
 
 fun Project.lastCommitHash(): String = extensions.getByType<IndraGitExtension>().commit().orNull?.name?.substring(0, 7)
-  ?: error("Could not determine commit hash")
+  ?: "local" // not a git checkout (e.g. extracted source zip)
 
 fun Project.decorateVersion() {
   val versionString = version as String
