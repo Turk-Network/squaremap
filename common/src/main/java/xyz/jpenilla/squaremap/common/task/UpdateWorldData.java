@@ -21,6 +21,7 @@ import xyz.jpenilla.squaremap.common.config.Messages;
 import xyz.jpenilla.squaremap.common.config.WorldConfig;
 import xyz.jpenilla.squaremap.common.data.DirectoryProvider;
 import xyz.jpenilla.squaremap.common.data.MapWorldInternal;
+import xyz.jpenilla.squaremap.common.s3.TileUploader;
 import xyz.jpenilla.squaremap.common.util.FileUtil;
 import xyz.jpenilla.squaremap.common.util.Util;
 
@@ -96,6 +97,7 @@ public final class UpdateWorldData implements Runnable {
         final Map<String, Object> map = new HashMap<>();
         map.put("worlds", worlds);
         map.put("ui", ui);
+        map.put("tiles_url", Config.TILES_URL.isBlank() ? TileUploader.webTilesUrl() : Config.TILES_URL);
 
         FileUtil.atomicWriteJsonAsync(this.directoryProvider.tilesDirectory().resolve("settings.json"), map);
     }

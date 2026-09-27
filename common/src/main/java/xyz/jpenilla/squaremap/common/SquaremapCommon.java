@@ -23,6 +23,7 @@ import xyz.jpenilla.squaremap.common.data.LevelBiomeColorData;
 import xyz.jpenilla.squaremap.common.httpd.IntegratedServer;
 import xyz.jpenilla.squaremap.common.httpd.JsonCache;
 import xyz.jpenilla.squaremap.common.layer.SpawnIconLayer;
+import xyz.jpenilla.squaremap.common.s3.TileUploader;
 import xyz.jpenilla.squaremap.common.util.Components;
 import xyz.jpenilla.squaremap.common.util.ReflectionUtil;
 import xyz.jpenilla.squaremap.common.util.SquaremapJarAccess;
@@ -75,6 +76,7 @@ public final class SquaremapCommon {
     private void start() {
         this.squaremapJar.extract("web", this.directoryProvider.webDirectory(), Config.UPDATE_WEB_DIR);
         LevelBiomeColorData.loadImages(this.directoryProvider);
+        TileUploader.start(this.directoryProvider);
         this.worldManager.start();
         this.platform.startCallback();
         if (Config.HTTPD_ENABLED) {
@@ -90,6 +92,8 @@ public final class SquaremapCommon {
         }
         this.platform.stopCallback();
         this.worldManager.shutdown();
+        // after the worlds so their final tile saves still get uploaded
+        TileUploader.stop();
         if (Config.HTTPD_ENABLED && !Config.FLUSH_JSON_IMMEDIATELY) {
             this.jsonCache.flush();
         }

@@ -20,6 +20,7 @@ import org.checkerframework.framework.qual.DefaultQualifier;
 import xyz.jpenilla.squaremap.common.Logging;
 import xyz.jpenilla.squaremap.common.config.Config;
 import xyz.jpenilla.squaremap.common.config.Messages;
+import xyz.jpenilla.squaremap.common.s3.TileUploader;
 import xyz.jpenilla.squaremap.common.util.FileUtil;
 
 @DefaultQualifier(NonNull.class)
@@ -110,6 +111,7 @@ public final class Image {
                     save(image, outputStream);
                 }
             });
+            TileUploader.enqueue(out);
         } catch (final IOException ex) {
             this.logCouldNotSave(ex);
         }

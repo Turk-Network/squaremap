@@ -2,6 +2,7 @@ export interface Settings {
     static: boolean;
     worlds: Settings_World[];
     ui: Settings_UI;
+    tiles_url?: string;
 }
 
 export interface Settings_World {

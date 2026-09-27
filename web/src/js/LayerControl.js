@@ -112,7 +112,7 @@ class LayerControl {
      * @returns {L.TileLayer}
      */
     createTileLayer(world) {
-        return new SquaremapTileLayer(`tiles/${world.name}/{z}/{x}_{y}.png`, {
+        return new SquaremapTileLayer(`${S.tilesUrl}/${world.name}/{z}/{x}_{y}.png`, {
             tileSize: 512,
             minNativeZoom: 0,
             maxNativeZoom: world.zoom.max,

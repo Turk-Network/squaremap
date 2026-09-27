@@ -56,6 +56,34 @@ public final class Config extends AbstractConfig {
         UPDATE_WEB_DIR = config.getBoolean("settings.web-directory.auto-update", UPDATE_WEB_DIR);
     }
 
+    public static String TILES_URL = "";
+
+    private static void tilesUrlSettings() {
+        TILES_URL = config.getString("settings.tiles-url", TILES_URL);
+    }
+
+    public static boolean S3_ENABLED = false;
+    public static String S3_ENDPOINT = "";
+    public static String S3_REGION = "us-east-1";
+    public static String S3_BUCKET = "";
+    public static String S3_ACCESS_KEY = "";
+    public static String S3_SECRET_KEY = "";
+    public static String S3_PUBLIC_URL = "";
+    public static boolean S3_SET_PUBLIC_READ_POLICY = true;
+    public static int S3_UPLOAD_THREADS = 4;
+
+    private static void s3Settings() {
+        S3_ENABLED = config.getBoolean("settings.s3.enabled", S3_ENABLED);
+        S3_ENDPOINT = config.getString("settings.s3.endpoint", S3_ENDPOINT);
+        S3_REGION = config.getString("settings.s3.region", S3_REGION);
+        S3_BUCKET = config.getString("settings.s3.bucket", S3_BUCKET);
+        S3_ACCESS_KEY = config.getString("settings.s3.access-key", S3_ACCESS_KEY);
+        S3_SECRET_KEY = config.getString("settings.s3.secret-key", S3_SECRET_KEY);
+        S3_PUBLIC_URL = config.getString("settings.s3.public-url", S3_PUBLIC_URL);
+        S3_SET_PUBLIC_READ_POLICY = config.getBoolean("settings.s3.set-public-read-policy", S3_SET_PUBLIC_READ_POLICY);
+        S3_UPLOAD_THREADS = Math.max(1, config.getInt("settings.s3.upload-threads", S3_UPLOAD_THREADS));
+    }
+
     public static boolean COMPRESS_IMAGES = false;
     private static double COMPRESSION_RATIO_CONFIG = 0.0F;
     public static float COMPRESSION_RATIO;

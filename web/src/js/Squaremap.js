@@ -19,6 +19,8 @@ class SquaremapMap {
     staticMode;
     /** @type {string} */
     title;
+    /** @type {string} */
+    tilesUrl;
     /** @type {Sidebar} */
     sidebar;
     /** @type {PlayerList} */
@@ -83,6 +85,8 @@ class SquaremapMap {
 
                 this.staticMode = json.static || false;
                 this.title = json.ui.title;
+                // tile images may be served from an external host (e.g. S3/CDN), everything else stays relative
+                this.tilesUrl = (json.tiles_url || "tiles").replace(/\/+$/, "");
                 this.sidebar = new Sidebar(json.ui.sidebar, this.getUrlParam("show_sidebar", "true") === "true");
                 this.playerList = new PlayerList(json.ui.sidebar);
                 this.worldList = new WorldList(json.worlds);
